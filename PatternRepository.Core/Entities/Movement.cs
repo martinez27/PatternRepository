@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PatternRepository.Core.Entities
 {
-    public class Movements
+    public class Movement
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }

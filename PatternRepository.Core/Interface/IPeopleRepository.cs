@@ -2,7 +2,7 @@
 
 namespace PatternRepository.Core.Interface
 {
-    public interface IAccountRepository : IRepository<Account>
+    public interface IPeopleRepository : IRepository<People>
     {
     }
 }

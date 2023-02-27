@@ -8,8 +8,8 @@ namespace PatternRepository.Core.Entities
 {
     public class Customer : People
     {
-        public int CustomereId { get; set; }
+        public int CustomerId { get; set; }
         public string Password { get; set; }
-        public string State { get; set; }
+        public bool State { get; set; } = true;
     }
 }

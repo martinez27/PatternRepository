@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PatternRepository.Core.Interface;
-using PatternRepository.Core.Services.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +12,9 @@ namespace PatternRepository.Core.Services.Class
     {
         private readonly DbContext _dbContext;
 
-        public IClientRepository Client { get; private set; }
+        public ICustomerRepository Client { get; private set; }
         public IAccountRepository Account { get; private set; }
-        public IMoveRepository Movement { get; private set; }
+        public IMovementRepository Movement { get; private set; }
 
         public UnitOfWork(DbContext dbContext)
         { 
