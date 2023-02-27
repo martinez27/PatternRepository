@@ -12,7 +12,7 @@ namespace PatternRepository.Core.Entities
         public string AccountNumber { get; set; }
         public string TypeAccount { get; set; }
         public decimal InitialBalance { get; set; }
-        public bool State { get; set; };
+        public bool State { get; set; }
         public int CustomerId { get; set; }
         public Customer Cliente { get; set; }
     }

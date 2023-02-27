@@ -8,10 +8,12 @@ namespace PatternRepository.Core.DTOs
 {
     public class MovementDTO
     {
+        public int Id { get; set; }
         public DateTime Date { get; set; }
         public string CustomerName { get; set; }
         public string AccountNumber { get; set; }
         public string TypeAccount { get; set; }
+        public string TypeMotion { get; set; }
         public decimal InitialBalance { get; set; }
         public bool State { get; set; }
         public decimal Value { get; set; }
