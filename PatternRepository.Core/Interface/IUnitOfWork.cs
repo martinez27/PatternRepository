@@ -1,4 +1,6 @@
-﻿namespace PatternRepository.Core.Interface
+﻿using PatternRepository.Core.Interface.Repository;
+
+namespace PatternRepository.Core.Interface
 {
     public interface IUnitOfWork : IDisposable
     {

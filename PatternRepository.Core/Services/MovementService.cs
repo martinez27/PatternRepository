@@ -1,6 +1,7 @@
 ﻿using PatternRepository.Core.DTOs;
 using PatternRepository.Core.Entities;
 using PatternRepository.Core.Interface;
+using PatternRepository.Core.Interface.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,16 +26,14 @@ namespace PatternRepository.Core.Services
                 var movement = new Movement
                 {
                     Date = movementDTO.Date,
-                    //AccountNumber = movementDTO.AccountNumber,
-                    //TypeAccount = movementDTO.TypeAccount,
                     TypeMotion= movementDTO.TypeMotion,
-                    //InitialBalance = movementDTO.InitialBalance,
-                    //State = movementDTO.State,
                     Value = movementDTO.Value,
                     Balance = movementDTO.Balance
                 };
+                //Agregar entidad Movement
+                _unitOfWork.MovementRepository.Add(movement);
 
-
+                _unitOfWork.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -43,14 +42,43 @@ namespace PatternRepository.Core.Services
             }
         }
 
-        public Task DeleteMovement(int movementId)
+        public async Task DeleteMovement(int movementId)
         {
-            throw new NotImplementedException();
+           Movement movement = await _unitOfWork.MovementRepository.GetByIdAsync(movementId);
+
+            _unitOfWork.MovementRepository.Delete(movement);
+            _unitOfWork.SaveChanges(); 
+        }
+
+        public void DepositarMovement(MovementDTO movementDTO)
+        {
+
+            Movement existMovement = _unitOfWork.MovementRepository.GetByIdAsync(movementDTO.Id).Result;
+
+            existMovement.TypeMotion = movementDTO.TypeMotion;
+            existMovement.Value = movementDTO.Value;
+            existMovement.Balance = movementDTO.Balance;
+        }
+
+        public void RetirarMovement(MovementDTO movementDTO)
+        {
+            Movement existMovement = _unitOfWork.MovementRepository.GetByIdAsync(movementDTO.Id).Result;
+
+            existMovement.TypeMotion = movementDTO.TypeMotion;
+            existMovement.Value = movementDTO.Value;
+            existMovement.Balance = movementDTO.Balance;
+
         }
 
         public void UpdateMovement(MovementDTO movementDTO)
         {
-            throw new NotImplementedException();
+            Movement existMovement = _unitOfWork.MovementRepository.GetByIdAsync(movementDTO.Id).Result;
+            
+            existMovement.TypeMotion = movementDTO.TypeMotion;
+            existMovement.Value = movementDTO.Value;
+            existMovement.Balance = movementDTO.Balance;
+
+
         }
     }
 }

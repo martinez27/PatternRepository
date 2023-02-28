@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PatternRepository.Core.Interface
+namespace PatternRepository.Core.Interface.Service
 {
     public interface ICustomerService
     {

@@ -1,6 +1,7 @@
 ﻿using PatternRepository.Core.DTOs;
 using PatternRepository.Core.Entities;
 using PatternRepository.Core.Interface;
+using PatternRepository.Core.Interface.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;

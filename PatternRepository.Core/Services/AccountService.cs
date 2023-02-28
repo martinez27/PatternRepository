@@ -1,6 +1,7 @@
 ﻿using PatternRepository.Core.DTOs;
 using PatternRepository.Core.Entities;
 using PatternRepository.Core.Interface;
+using PatternRepository.Core.Interface.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,18 +19,17 @@ namespace PatternRepository.Core.Services
             _unitOfWork = unitOfWork;
         }
 
-        public void CreateAccount(AccountDTO accountDTO)
+        public void CreateCustomerAccount(SetAccountDTO accountDTO)
         {
             try
             {
                 //Mapeo de DTO a Entidad
                 var account = new Account
                 {
-                  AccountNumber = accountDTO.AccountNumber,
-                  TypeAccount = accountDTO.TypeAccount,
-                  InitialBalance = accountDTO.InitialBalance,
-                  State = accountDTO.State,
-                  CustomerId = accountDTO.CustomerId
+                    AccountNumber = accountDTO.AccountNumber,
+                    TypeAccount = accountDTO.TypeAccount,
+                    InitialBalance = accountDTO.InitialBalance,                    
+                    CustomerId = accountDTO.CustomerId
                 };
 
                 //Agregar entidad Account
@@ -44,31 +44,42 @@ namespace PatternRepository.Core.Services
             }
         }
 
-        public async Task DeleteAccount(int accountId)
+        public void GenerateAccountDeposit(AccountDTO accountDTO)
         {
-            int numberAccount = _unitOfWork.AccountRepository.GetAccountByCustomer(accountId);
+            //Buscamos numero de cuenta
+            var account = _unitOfWork.AccountRepository.GetAccount(accountDTO.AccountNumber);
 
-            if (numberAccount > 0)
+            //Calcular el nuevo saldo
+            decimal newBalance = account.InitialBalance + accountDTO.Value;
+
+            //Creamos un nuevo movimiento a la cuenta 
+            var movement = new Movement
             {
-                throw new Exception("La cuenta no se puede eliminar porque tiene cuentas actias");
-            }
+                Date = DateTime.Now,
+                AccountId = account.AccountId,
+                TypeMotion = "Deposito",
+                Value = accountDTO.Value,
+                Balance = newBalance
 
-            Account account = await _unitOfWork.AccountRepository.GetByIdAsync(accountId);
+            };
 
-            _unitOfWork.AccountRepository.Delete(account);
+            //Actualizamos el Valor Inicial 
+            account.InitialBalance = newBalance;
+
+            //Actualizamos el Saldo
+            _unitOfWork.AccountRepository.Update(account);
+
             _unitOfWork.SaveChanges();
         }
 
-        public void UpdateAccount(AccountDTO accountDTO)
+        public void GenerateAccountWithdrawal(AccountDTO accountDTO)
         {
-            //Consultar al Cliente
+            throw new NotImplementedException();
+        }
 
-            Account existAccount = _unitOfWork.AccountRepository.GetByIdAsync(accountDTO.Id).Result;
-
-            existAccount.State = accountDTO.State;
-            existAccount.InitialBalance = accountDTO.InitialBalance;
-
-            _unitOfWork.SaveChanges();
+        public AccountDTO GetInfoAccount(string accountNumber, string type)
+        {
+            throw new NotImplementedException();
         }
     }
 }
