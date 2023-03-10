@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PatternRepository.Core.Entities.Enumeration;
 
 namespace PatternRepository.Core.Entities
 {
     public class Account
     {
-        public int AccountId { get; set; }
         public string AccountNumber { get; set; }
-        public string TypeAccount { get; set; }
-        public decimal InitialBalance { get; set; }
+        public AccountType AccounType { get; set; }
+        public decimal Balance { get; set; }
         public bool State { get; set; }
         public int CustomerId { get; set; }
-        public Customer Cliente { get; set; }
+        public Customer Customer { get; set; }
+        public ICollection<Movement> Movements { get; set; }    
     }
 }

@@ -31,7 +31,9 @@ namespace PatternRepository.Core.Services
                     Gender = customerDTO.Gender,
                     Age = customerDTO.Age,
                     Address = customerDTO.Address,
-                    Phone = customerDTO.Phone
+                    Phone = customerDTO.Phone,
+                    Password = customerDTO.Password,
+                    State = true
                 };
 
                 //Agregar entidad Customer

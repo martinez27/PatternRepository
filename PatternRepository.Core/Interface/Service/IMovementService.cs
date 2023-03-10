@@ -10,11 +10,6 @@ namespace PatternRepository.Core.Interface.Service
 {
     public interface IMovementService
     {
-        void CreateMovement(MovementDTO movement);
-        void UpdateMovement(MovementDTO movement);
-        Task DeleteMovement(int movementId);
-        void RetirarMovement(MovementDTO movement);
-        void DepositarMovement(MovementDTO movement);
-
+       IEnumerable<GetMovementDTO> GetAllMovementByUser(DateTime dateTime, int customerId);
     }
 }

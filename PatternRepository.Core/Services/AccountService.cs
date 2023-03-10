@@ -1,12 +1,8 @@
 ﻿using PatternRepository.Core.DTOs;
 using PatternRepository.Core.Entities;
+using PatternRepository.Core.Entities.Enumeration;
 using PatternRepository.Core.Interface;
 using PatternRepository.Core.Interface.Service;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PatternRepository.Core.Services
 {
@@ -27,8 +23,8 @@ namespace PatternRepository.Core.Services
                 var account = new Account
                 {
                     AccountNumber = accountDTO.AccountNumber,
-                    TypeAccount = accountDTO.TypeAccount,
-                    InitialBalance = accountDTO.InitialBalance,                    
+                    AccounType = (AccountType)Enum.Parse(typeof(AccountType), accountDTO.TypeAccount),
+                    Balance = accountDTO.InitialBalance,                    
                     CustomerId = accountDTO.CustomerId
                 };
 
@@ -47,24 +43,25 @@ namespace PatternRepository.Core.Services
         public void GenerateAccountDeposit(AccountDTO accountDTO)
         {
             //Buscamos numero de cuenta
-            var account = _unitOfWork.AccountRepository.GetAccount(accountDTO.AccountNumber);
+            Account account = _unitOfWork.AccountRepository.GetAccount(accountDTO.AccountNumber);
 
             //Calcular el nuevo saldo
-            decimal newBalance = account.InitialBalance + accountDTO.Value;
+            decimal newBalance = account.Balance + accountDTO.Value;
 
             //Creamos un nuevo movimiento a la cuenta 
             var movement = new Movement
             {
                 Date = DateTime.Now,
-                AccountId = account.AccountId,
-                TypeMotion = "Deposito",
+                AccountId = account.AccountNumber,
+                Type = MovementType.Deposito,
                 Value = accountDTO.Value,
                 Balance = newBalance
 
             };
 
+            _unitOfWork.MovementRepository.Add(movement);
             //Actualizamos el Valor Inicial 
-            account.InitialBalance = newBalance;
+            account.Balance = newBalance;
 
             //Actualizamos el Saldo
             _unitOfWork.AccountRepository.Update(account);
@@ -74,12 +71,52 @@ namespace PatternRepository.Core.Services
 
         public void GenerateAccountWithdrawal(AccountDTO accountDTO)
         {
-            throw new NotImplementedException();
+            //Buscamos numero de cuenta
+            Account account = _unitOfWork.AccountRepository.GetAccount(accountDTO.AccountNumber);
+
+            //Saldo disponible
+            if (accountDTO.Value > account.Balance)
+            {
+                throw new Exception("Saldo no disponible");
+            }
+
+            //Calcular el nuevo saldo
+            decimal newBalance = account.Balance - accountDTO.Value;
+
+
+            //Creamos un nuevo movimiento a la cuenta 
+            var movement = new Movement
+            {
+                Date = DateTime.Now,
+                AccountId = account.AccountNumber,
+                Type = MovementType.Retiro,
+                Value = accountDTO.Value,
+                Balance = newBalance
+
+            };
+
+            _unitOfWork.MovementRepository.Add(movement);
+            //Actualizamos el Valor Inicial 
+            account.Balance = newBalance;
+
+            //Actualizamos el Saldo
+            _unitOfWork.AccountRepository.Update(account);
+
+            _unitOfWork.SaveChanges();
         }
 
         public AccountDTO GetInfoAccount(string accountNumber, string type)
         {
-            throw new NotImplementedException();
+            Account account = _unitOfWork.AccountRepository.GetAccount(accountNumber);
+
+            return new AccountDTO
+            {
+                AccountNumber = accountNumber,
+                CustomerId = account.CustomerId,
+                State = account.State,
+                TypeAccount = Enum.GetName(typeof(AccountType), account.AccounType.ToString()),
+                Value = account.Balance
+            };
         }
     }
 }
