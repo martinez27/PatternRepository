@@ -11,6 +11,6 @@ namespace PatternRepository.Core.DTOs
         public string AccountNumber { get; set; }
         public string TypeAccount { get; set; }
         public decimal InitialBalance { get; set; }
-        public int CustomerId { get; set; }
+        public string CustomerId { get; set; }
     }
 }

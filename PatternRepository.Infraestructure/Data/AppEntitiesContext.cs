@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PatternRepository.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,9 @@ namespace PatternRepository.Infraestructure.Data
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
+
+        public DbSet<Account> Accounts { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Movement> Movements { get; set; }
     }
 }

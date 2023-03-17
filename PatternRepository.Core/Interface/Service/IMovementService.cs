@@ -10,6 +10,6 @@ namespace PatternRepository.Core.Interface.Service
 {
     public interface IMovementService
     {
-       IEnumerable<GetMovementDTO> GetAllMovementByUser(DateTime dateTime, int customerId);
+       IEnumerable<GetMovementDTO> GetAllMovementByUser(DateTime from, DateTime to, string customerId);
     }
 }

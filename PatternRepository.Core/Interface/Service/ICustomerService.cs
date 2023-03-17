@@ -9,8 +9,8 @@ namespace PatternRepository.Core.Interface.Service
 {
     public interface ICustomerService
     {
-        void CreateCustomer(CustomerDTO customerDTO);
-        void UpdateCustomer(CustomerDTO customerDTO);
-        Task DeleteCustomer(int customerId);
+        void CreateCustomer(SetCustomerDTO customerDTO);
+        void UpdateCustomer(SetCustomerDTO customerDTO);
+        Task DeleteCustomer(string customerId);
     }
 }

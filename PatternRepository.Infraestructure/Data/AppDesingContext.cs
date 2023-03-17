@@ -14,7 +14,7 @@ namespace PatternRepository.Infraestructure.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=localhost; Initial Catalog=PatronRepositorio; Integrated Security= True; TrustServerCertificate=True");
+            optionsBuilder.UseSqlServer("Data Source=DESKTOP-I3TTVDM\\SQLEXPRESS; Initial Catalog=PatronRepositorio; Integrated Security= True; TrustServerCertificate=True");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -22,9 +22,9 @@ namespace PatternRepository.Infraestructure.Data
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
-        DbSet<Account> Accounts { get; set; }
-        DbSet<Customer> Customers { get; set; }
-        DbSet<Movement> Movements { get; set; }
+        public DbSet<Account> Accounts { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Movement> Movements { get; set; }
 
     }
 }

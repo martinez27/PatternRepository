@@ -1,12 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PatternRepository.Core.Interface;
 using PatternRepository.Infraestructure.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PatternRepository.Infraestructure.Repositories
 {
@@ -14,6 +9,7 @@ namespace PatternRepository.Infraestructure.Repositories
     {
         private readonly AppEntitiesContext _context;
         private readonly DbSet<T> _entity;
+
         public Repository(AppEntitiesContext context)
         {
             _context = context;

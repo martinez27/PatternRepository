@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PatternRepository.Core.DTOs
 {
-    public class CustomerDTO
+    public class SetCustomerDTO
     {
         public string Id { get; set; }
         public string Name { get; set; }

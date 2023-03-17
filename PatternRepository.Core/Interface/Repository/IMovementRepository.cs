@@ -5,6 +5,6 @@ namespace PatternRepository.Core.Interface.Repository
 {
     public interface IMovementRepository : IRepository<Movement>
     {
-        IEnumerable<Movement> GetAllMovementByUser(DateTime dateTime, int customerId);
+        //IEnumerable<Movement> GetAllMovementByUser(DateTime dateTime, int customerId);
     }
 }

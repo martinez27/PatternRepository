@@ -3,11 +3,6 @@ using PatternRepository.Core.Entities;
 using PatternRepository.Core.Entities.Enumeration;
 using PatternRepository.Core.Interface;
 using PatternRepository.Core.Interface.Service;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PatternRepository.Core.Services
 {
@@ -20,9 +15,13 @@ namespace PatternRepository.Core.Services
             _unitOfWork = unitOfWork;
         }
 
-        public IEnumerable<GetMovementDTO> GetAllMovementByUser(DateTime dateTime, int customerId)
+        public IEnumerable<GetMovementDTO> GetAllMovementByUser(DateTime from, DateTime to, string customerId)
         {
-           IEnumerable<Movement> movements = _unitOfWork.MovementRepository.GetAllMovementByUser(dateTime, customerId);
+            //expression
+            //where from.Date >= date && date <= to.Date  && customerId == customerId
+
+
+            IEnumerable<Movement> movements = _unitOfWork.MovementRepository.GetAllAsync(x => x.Date.Date >= from.Date && x.Date.Date <= to.Date && x.Account.CustomerId == customerId, "Account,Account.Customer");
 
             return movements.Cast<Movement>()
                 .Select(x=>new GetMovementDTO

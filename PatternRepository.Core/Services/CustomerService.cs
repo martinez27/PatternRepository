@@ -20,7 +20,7 @@ namespace PatternRepository.Core.Services
             _unitOfWork = unitOfWork;
         }
 
-        public void CreateCustomer(CustomerDTO customerDTO)
+        public void CreateCustomer(SetCustomerDTO customerDTO)
         {
             try
             {
@@ -48,7 +48,7 @@ namespace PatternRepository.Core.Services
             }
         }
 
-        public async Task DeleteCustomer(int customerId)
+        public async Task DeleteCustomer(string customerId)
         {
 
             //Consultar Cantidad de Cuentas
@@ -66,7 +66,7 @@ namespace PatternRepository.Core.Services
             _unitOfWork.SaveChanges();
         }
 
-        public void UpdateCustomer(CustomerDTO customerDTO)
+        public void UpdateCustomer(SetCustomerDTO customerDTO)
         {
             //Consultar al Cliente
             
