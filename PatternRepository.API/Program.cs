@@ -1,6 +1,6 @@
-var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
+using PatternRepository.API;
 
-app.MapGet("/", () => "Hello World!");
-
-app.Run();
+WebApplication.CreateBuilder(args)
+    .CreateWebApp() //Trae Servicios
+    .ConfigureWebApp() // Configura
+    .Run();

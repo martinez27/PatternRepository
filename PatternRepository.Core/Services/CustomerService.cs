@@ -5,6 +5,7 @@ using PatternRepository.Core.Interface.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,12 +25,14 @@ namespace PatternRepository.Core.Services
         {
             try
             {
+               // var existingCustomer = _unitOfWork.CustomerRepository.GetByIdAsync(x=>x.);
                 //Mapeo de DTO a Entidad
                 var customer = new Customer
                 {
+                    Id = customerDTO.Id,
                     Name = customerDTO.Name,
                     Gender = customerDTO.Gender,
-                    Age = customerDTO.Age,
+                    Age = (int)customerDTO.Age,
                     Address = customerDTO.Address,
                     Phone = customerDTO.Phone,
                     Password = customerDTO.Password,
