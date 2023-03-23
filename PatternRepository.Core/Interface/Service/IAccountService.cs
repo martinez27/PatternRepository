@@ -10,8 +10,8 @@ namespace PatternRepository.Core.Interface.Service
     public interface IAccountService
     {
         void CreateCustomerAccount(SetAccountDTO accountDTO);
-        void GenerateAccountWithdrawal(AccountDTO accountDTO);
-        void GenerateAccountDeposit(AccountDTO accountDTO);
-        AccountDTO GetInfoAccount(string accountNumber, string type);
+        void GenerateAccountWithdrawal(SetMovementAccountDTO accountDTO);
+        void GenerateAccountDeposit(SetMovementAccountDTO accountDTO);
+        SetMovementAccountDTO GetInfoAccount(string accountNumber, string type);
     }
 }

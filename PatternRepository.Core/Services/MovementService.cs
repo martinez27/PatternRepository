@@ -25,7 +25,8 @@ namespace PatternRepository.Core.Services
 
             return movements.Cast<Movement>()
                 .Select(x=>new GetMovementDTO
-                { 
+                {
+                    Type = x.Type.ToString(),
                     Date = x.Date,
                     CustomerName = x.Account.Customer.Name,
                     AccountNumber =x.Account.AccountNumber,

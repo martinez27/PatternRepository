@@ -1,5 +1,6 @@
 ﻿using PatternRepository.Core.DTOs;
 using PatternRepository.Core.Entities;
+using PatternRepository.Core.Exceptions;
 using PatternRepository.Core.Interface;
 using PatternRepository.Core.Interface.Service;
 using System;
@@ -25,6 +26,12 @@ namespace PatternRepository.Core.Services
         {
             try
             {
+                var existingCustomer = _unitOfWork.CustomerRepository.GetByIdAsync(customerDTO.Id);
+
+                if (existingCustomer != null)
+                {
+                    throw new BusinessExceptions("El Cliente Existe en el Sistema");
+                }
                // var existingCustomer = _unitOfWork.CustomerRepository.GetByIdAsync(x=>x.);
                 //Mapeo de DTO a Entidad
                 var customer = new Customer

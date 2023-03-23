@@ -8,6 +8,7 @@ namespace PatternRepository.Core.DTOs
 {
     public class GetMovementDTO
     {
+        public string Type { get; set; }
         public DateTime Date { get; set; }
         public string CustomerName { get; set; }
         public string AccountNumber { get; set; }

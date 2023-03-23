@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PatternRepository.API.Response;
 using PatternRepository.Core.DTOs;
 using PatternRepository.Core.Interface.Service;
 
@@ -20,10 +21,11 @@ namespace PatternRepository.API.Controllers
         /// <param name="customerDTO"></param>
         /// <returns></returns>
         [HttpPost("Crear_Cliente")]
-        public IActionResult CreateCustomer(SetCustomerDTO customerDTO)
+        public ActionResult<WebApiResponse<string>> CreateCustomer(SetCustomerDTO customerDTO)
         { 
             _customerService.CreateCustomer(customerDTO);
-            return Ok("Cliente Creado Correctamente");
+            var response = new WebApiResponse<string>("Cliente Creado Correctamente");
+            return Ok(response);
         }
     }
 }
