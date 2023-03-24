@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using PatternRepository.Core.Interface;
+using PatternRepository.Core.Interface.Repository;
 using PatternRepository.Core.Interface.Service;
 using PatternRepository.Core.Services;
 using PatternRepository.Infraestructure.Data;
@@ -38,6 +39,9 @@ namespace PatternRepository.API
             //Repositorios
 
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            builder.Services.AddScoped<IAccountRepository,AccountRepository>();
+            builder.Services.AddScoped<ICustomerRepository,CustomerRepository>();
+            builder.Services.AddScoped<IMovementRepository,MovementRepository>();
 
             //Servicios
 

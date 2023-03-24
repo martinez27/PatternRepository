@@ -13,9 +13,16 @@ namespace PatternRepository.Infraestructure.Repositories
     {
         private readonly AppEntitiesContext _context;
 
-        public UnitOfWork(AppEntitiesContext context)
+        public UnitOfWork(AppEntitiesContext context,
+            IAccountRepository accountRepository,
+            ICustomerRepository customerRepository,
+            IMovementRepository movementRepository            
+            )
         {
             _context = context;
+            _accountRepository = accountRepository;
+            _customerRepository = customerRepository;
+            _movementRepository = movementRepository;
         }
 
         //Campos privados
@@ -24,11 +31,11 @@ namespace PatternRepository.Infraestructure.Repositories
         private readonly ICustomerRepository _customerRepository;
         private readonly IMovementRepository _movementRepository;
 
-        public ICustomerRepository CustomerRepository => _customerRepository ?? new CustomerRepository(_context);
+        public ICustomerRepository CustomerRepository => _customerRepository;
 
-        public IAccountRepository AccountRepository =>  _accountRepository ?? new AccountRepository(_context);
+        public IAccountRepository AccountRepository => _accountRepository; // ?? new AccountRepository(_context);
 
-        public IMovementRepository MovementRepository => _movementRepository ?? new MovementRepository(_context);
+        public IMovementRepository MovementRepository => _movementRepository; // ?? new MovementRepository(_context);
 
         public void Dispose()
         {
