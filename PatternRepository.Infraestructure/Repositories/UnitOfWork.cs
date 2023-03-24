@@ -20,22 +20,16 @@ namespace PatternRepository.Infraestructure.Repositories
             )
         {
             _context = context;
-            _accountRepository = accountRepository;
-            _customerRepository = customerRepository;
-            _movementRepository = movementRepository;
+            CustomerRepository = customerRepository;
+            AccountRepository = accountRepository;
+            MovementRepository = movementRepository;            
         }
 
-        //Campos privados
+        public ICustomerRepository CustomerRepository { get; }
 
-        private readonly IAccountRepository _accountRepository;
-        private readonly ICustomerRepository _customerRepository;
-        private readonly IMovementRepository _movementRepository;
+        public IAccountRepository AccountRepository { get; }
 
-        public ICustomerRepository CustomerRepository => _customerRepository;
-
-        public IAccountRepository AccountRepository => _accountRepository; // ?? new AccountRepository(_context);
-
-        public IMovementRepository MovementRepository => _movementRepository; // ?? new MovementRepository(_context);
+        public IMovementRepository MovementRepository { get; }
 
         public void Dispose()
         {
