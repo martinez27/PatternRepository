@@ -10,4 +10,9 @@
     <Compile Remove="DTOs\SetMovementDTO.cs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Options" Version="7.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="7.0.0" />
+  </ItemGroup>
+
 </Project>

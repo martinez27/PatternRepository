@@ -3,12 +3,7 @@ using PatternRepository.Core.Entities;
 using PatternRepository.Core.Exceptions;
 using PatternRepository.Core.Interface;
 using PatternRepository.Core.Interface.Service;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+using PatternRepository.Core.Interface.Utils;
 
 namespace PatternRepository.Core.Services
 {
@@ -16,17 +11,20 @@ namespace PatternRepository.Core.Services
     public class CustomerService : ICustomerService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IPasswordHasher _passwordHasher;
 
-        public CustomerService(IUnitOfWork unitOfWork)
+        public CustomerService(IUnitOfWork unitOfWork,
+            IPasswordHasher passwordHasher)
         {
             _unitOfWork = unitOfWork;
+            _passwordHasher = passwordHasher;
         }
 
         public void CreateCustomer(SetCustomerDTO customerDTO)
         {
             try
             {
-                var existingCustomer = _unitOfWork.CustomerRepository.GetByIdAsync(customerDTO.Id);
+                var existingCustomer = _unitOfWork.CustomerRepository.GetByIdAsync(customerDTO.Id).Result;
 
                 if (existingCustomer != null)
                 {
@@ -42,7 +40,7 @@ namespace PatternRepository.Core.Services
                     Age = (int)customerDTO.Age,
                     Address = customerDTO.Address,
                     Phone = customerDTO.Phone,
-                    Password = customerDTO.Password,
+                    Password = _passwordHasher.Hash(customerDTO.Password),
                     State = true
                 };
 

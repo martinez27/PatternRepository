@@ -4,16 +4,20 @@ using PatternRepository.Core.Entities.Enumeration;
 using PatternRepository.Core.Exceptions;
 using PatternRepository.Core.Interface;
 using PatternRepository.Core.Interface.Service;
+using PatternRepository.Core.Interface.Utils;
 
 namespace PatternRepository.Core.Services
 {
     public class AccountService : IAccountService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IPasswordHasher _passwordHasher;
 
-        public AccountService(IUnitOfWork unitOfWork)
+        public AccountService(IUnitOfWork unitOfWork,
+            IPasswordHasher passwordHasher)
         {
             _unitOfWork = unitOfWork;
+            _passwordHasher = passwordHasher;
         }
 
         public void CreateCustomerAccount(SetAccountDTO accountDTO)
@@ -66,12 +70,13 @@ namespace PatternRepository.Core.Services
                 throw new BusinessExceptions("Cliente Inactivo");
 
             if (account.CustomerId != customer.Id)
-                throw new BusinessExceptions("El Cliente No Es Propietario de la Cuemta");
+                throw new BusinessExceptions("El Cliente No Es Propietario de la Cuenta");
 
             if (customer == null)
                 throw new BusinessExceptions("El Cliente No Existe");
 
-            if (accountDTO.UserPassword != customer?.Password)
+            //if (accountDTO.UserPassword != customer?.Password)
+            if (!_passwordHasher.Check(customer.Password, accountDTO.UserPassword))
                 throw new BusinessExceptions("Contraseña Incorrecta");
 
             //Calcular el nuevo saldo
@@ -120,7 +125,7 @@ namespace PatternRepository.Core.Services
             if (account.CustomerId != customer.Id)
                 throw new BusinessExceptions("El Cliente No Es Propietario de la Cuemta");
 
-            if (accountDTO.UserPassword != customer?.Password)
+            if (!_passwordHasher.Check(customer.Password, accountDTO.UserPassword))
                 throw new BusinessExceptions("Contraseña Incorrecta");
 
             //Saldo disponible

@@ -5,7 +5,10 @@ using PatternRepository.API.Response;
 using PatternRepository.Core.Interface;
 using PatternRepository.Core.Interface.Repository;
 using PatternRepository.Core.Interface.Service;
+using PatternRepository.Core.Interface.Utils;
+using PatternRepository.Core.Options;
 using PatternRepository.Core.Services;
+using PatternRepository.Core.Utils;
 using PatternRepository.Infraestructure.Data;
 using PatternRepository.Infraestructure.Filters;
 using PatternRepository.Infraestructure.Options;
@@ -60,6 +63,15 @@ namespace PatternRepository.API
             //Unidad de Trabajo
 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            //Opciones de Contraseña
+
+            builder.Services.Configure<PasswordOptions>
+                (builder.Configuration.GetSection(nameof(PasswordOptions)));
+
+            //Servicio de Incriptacion
+
+            builder.Services.AddSingleton<IPasswordHasher, PasswordService>();
 
             //Documentacion
 
