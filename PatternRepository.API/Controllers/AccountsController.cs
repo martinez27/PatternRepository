@@ -21,7 +21,7 @@ namespace PatternRepository.API.Controllers
         public ActionResult<WebApiResponse<string>> CreateAcount(SetAccountDTO AccountDTO)
         { 
             _accountService.CreateCustomerAccount(AccountDTO);
-            var response = new WebApiResponse<string>($"Cuenta ha creado la cuenta: {AccountDTO.AccountNumber} correctamente");
+            var response = WebApiResponse<string>.Create($"Cuenta ha creado la cuenta: {AccountDTO.AccountNumber} correctamente");
             return Ok(response);
         }
 
@@ -29,7 +29,7 @@ namespace PatternRepository.API.Controllers
         public ActionResult<WebApiResponse<string>> CreateDeposit(SetMovementAccountDTO movementAccountDTO)
         { 
             _accountService.GenerateAccountDeposit(movementAccountDTO);
-            var response = new WebApiResponse<string>("Deposito se realizo satisfactoriamente");
+            var response = WebApiResponse<string>.Create("Deposito se realizo satisfactoriamente");
             return Ok(response);
         }
 
@@ -37,7 +37,7 @@ namespace PatternRepository.API.Controllers
         public ActionResult<WebApiResponse<string>> CreateWithdrawal(SetMovementAccountDTO movementAccountDTO)
         {
             _accountService.GenerateAccountWithdrawal(movementAccountDTO);
-            var response = new WebApiResponse<string>("Retiro se realizo satisfactoriamente");
+            var response = WebApiResponse<string>.Create("Retiro se realizo satisfactoriamente");
             return Ok(response);
         }
     }

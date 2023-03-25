@@ -1,12 +1,14 @@
 ﻿using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using PatternRepository.API.Response;
 using PatternRepository.Core.Interface;
 using PatternRepository.Core.Interface.Repository;
 using PatternRepository.Core.Interface.Service;
 using PatternRepository.Core.Services;
 using PatternRepository.Infraestructure.Data;
 using PatternRepository.Infraestructure.Filters;
+using PatternRepository.Infraestructure.Options;
 using PatternRepository.Infraestructure.Repositories;
 
 namespace PatternRepository.API
@@ -20,6 +22,12 @@ namespace PatternRepository.API
             builder.Services.AddControllers(options =>
                 options.Filters.Add<GlobalExceptionFilter>()
             );
+
+            //Opciones de Paginacion
+
+            builder.Services.Configure<PaginationOptions>
+                (builder.Configuration.GetSection(nameof(PaginationOptions)));
+
 
             //Filtro de Validacion
 

@@ -9,7 +9,7 @@ namespace PatternRepository.Core.Services
     public class MovementService : IMovementService
     {
         private readonly IUnitOfWork _unitOfWork;
-
+        
         public MovementService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;

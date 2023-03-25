@@ -24,7 +24,7 @@ namespace PatternRepository.API.Controllers
         public ActionResult<WebApiResponse<string>> CreateCustomer(SetCustomerDTO customerDTO)
         { 
             _customerService.CreateCustomer(customerDTO);
-            var response = new WebApiResponse<string>("Cliente Creado Correctamente");
+            var response = WebApiResponse<string>.Create("Cliente Creado Correctamente");
             return Ok(response);
         }
     }

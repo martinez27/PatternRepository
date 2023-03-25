@@ -22,7 +22,7 @@ namespace PatternRepository.API.Controllers
         public ActionResult<WebApiResponse<IEnumerable<GetMovementDTO>>> GetMovementsByUser(DateTime from, DateTime to, string customerId)
         {
             var movements = _movementService.GetAllMovementByUser(from, to, customerId);
-            var response = new WebApiResponse<IEnumerable<GetMovementDTO>>(movements, "Proceso ejecutado correctamente");
+            var response = WebApiResponse<IEnumerable<GetMovementDTO>>.Create(movements, "Proceso ejecutado correctamente");
             if (!movements.Any())
             {
                 response.StatusCode = System.Net.HttpStatusCode.NotFound;
