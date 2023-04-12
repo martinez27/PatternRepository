@@ -8,9 +8,10 @@ using PatternRepository.Infraestructure.Data;
 
 #nullable disable
 
-namespace PatternRepository.Infraestructure.Migrations
+namespace PatternRepository.Infraestructure.Migrations.AppDesing
 {
-    [DbContext(typeof(AppDesingContext))]
+    //[DbContext(typeof(AppDesingContext))]
+    [DbContext(typeof(AppEntitiesContext))]
     partial class AppDesingContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -76,6 +77,12 @@ namespace PatternRepository.Infraestructure.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(10)");
 
+                    b.Property<string>("Height")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(20)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(30)
@@ -84,9 +91,9 @@ namespace PatternRepository.Infraestructure.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(200)
+                        .HasMaxLength(4)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("varchar(4)");
 
                     b.Property<string>("Phone")
                         .IsRequired()

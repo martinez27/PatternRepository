@@ -9,6 +9,7 @@ using PatternRepository.Core.Interface.Utils;
 using PatternRepository.Core.Options;
 using PatternRepository.Core.Services;
 using PatternRepository.Core.Utils;
+using PatternRepository.Infraestructure;
 using PatternRepository.Infraestructure.Data;
 using PatternRepository.Infraestructure.Filters;
 using PatternRepository.Infraestructure.Options;
@@ -42,10 +43,10 @@ namespace PatternRepository.API
 
             //Base de datos
 
-            string connectionString = builder.Configuration.GetConnectionString("PatronRepositorioDB");
+            string connectionName = builder.Environment.IsProduction() ? "PatronRepositorioDBProd" : "PatronRepositorioDB";
 
             builder.Services.AddDbContext<AppEntitiesContext>(options =>
-            options.UseSqlServer(connectionString));
+            options.UseSqlServer(builder.Configuration.GetConnectionString(connectionName)));
 
             //Repositorios
 
@@ -116,6 +117,7 @@ namespace PatternRepository.API
                     endpoints.MapControllers();
                 });
 
+            PrepareDB.Execute(app);
 
             return app;
         }

@@ -11,7 +11,8 @@ using PatternRepository.Infraestructure.Data;
 
 namespace PatternRepository.Infraestructure.Migrations
 {
-    [DbContext(typeof(AppDesingContext))]
+    //[DbContext(typeof(AppDesingContext))]
+    [DbContext(typeof(AppEntitiesContext))]
     [Migration("20230315044618_InitialModel")]
     partial class InitialModel
     {
